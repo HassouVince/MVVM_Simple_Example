@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="mainmodel"
+            type="fr.systemathic.mvvm_simple_example.viewmodel.MainViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include android:id="@+id/mainToolbar"
+                layout="@layout/custom_toolbar"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                    android:id="@+id/swipeMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    bind:onRefresh="@{mainmodel.getSwipeRefreshListener()}"
+                    app:refreshing="@{mainmodel.swipeRefreshing}"
+                    >
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        style="@style/AppTheme.Rv"
+                        android:id="@+id/list"
+                        app:setAdapter="@{mainmodel.getAdapter()}"/>
+
+                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+                <TextView
+                    style="@style/AppTheme.SmallText"
+                    android:layout_gravity="center"
+                    android:text="Aucun resultat"
+                    android:visibility="@{mainmodel.emptyList}"/>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <ProgressBar
+            style="@style/AppTheme.ProgressBar"
+            android:id="@+id/progressBar"
+            android:visibility="@{mainmodel.loading}" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

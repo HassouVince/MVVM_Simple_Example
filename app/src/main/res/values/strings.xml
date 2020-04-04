@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MVVM_Simple_Example</string>
+    <string name="animation_main_to_detail" translatable="false">AnimationMainToDetail</string>
+</resources>
